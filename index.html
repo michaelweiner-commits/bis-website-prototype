@@ -214,7 +214,7 @@ input,textarea,select{font-family:inherit;color:inherit}
 @keyframes destPulse{0%{r:6;opacity:.9}100%{r:22;opacity:0}}
 
 .dest-name{fill:rgba(255,255,255,.85);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.5px}
-@media (max-width:600px){.dest-name{font-size:14px}}
+@media (max-width:600px){.dest-name{font-size:20px;font-weight:700}}
 .dest-code{fill:rgba(255,255,255,.35);font-family:'SF Mono',Menlo,monospace;font-size:9px;font-weight:500;letter-spacing:.3px}
 
 /* ---- Panel 2: Shield — national security ---- */
@@ -764,14 +764,15 @@ input,textarea,select{font-family:inherit;color:inherit}
   .agent-fab{width:52px;height:52px;font-size:22px;bottom:20px;right:20px}
   .agent-drawer{bottom:82px;right:12px;left:12px;height:calc(100vh - 120px)}
 
-  /* Turnstile mobile: bigger destination text, shorter labels, more space */
+  /* Turnstile mobile: bigger SVG text so it's readable when the 520x520 viewBox scales down */
   .hero-panel-caption-title{font-size:15px}
-  .dest-name-mobile{fill:rgba(255,255,255,.85);font-family:'Inter',sans-serif;font-size:13px;font-weight:600}
-  .shield-arc{stroke-width:2}
-  .ccl-title{font-size:13px}
-  .ccl-sub{font-size:10.5px}
-  .ccl-cell-num{font-size:16px}
-  .ccl-cell-label{font-size:9px}
+  .shield-arc{stroke-width:2.5}
+  .hub-label{font-size:18px;letter-spacing:2.5px}
+  .hub-sublabel{font-size:13px;letter-spacing:2.5px}
+  .ccl-title{font-size:19px;letter-spacing:3px}
+  .ccl-sub{font-size:15px;letter-spacing:2px}
+  .ccl-cell-num{font-size:26px}
+  .ccl-cell-label{font-size:14px;letter-spacing:1px}
 }
 </style>
 </head>
@@ -1110,11 +1111,11 @@ function HeroViz(){
     const x = Math.cos(rad) * SPOKE_LEN;
     const y = Math.sin(rad) * SPOKE_LEN;
     let anchor,labelDx;
-    const gutter = isPhone ? 12 : 16;
+    const gutter = isPhone ? 18 : 16;
     if(x > 20){ anchor='start'; labelDx = gutter; }
     else if(x < -20){ anchor='end'; labelDx = -gutter; }
     else { anchor='middle'; labelDx = 0; }
-    const labelDy = y < -30 ? -12 : y > 30 ? 20 : 4;
+    const labelDy = y < -30 ? (isPhone ? -18 : -12) : y > 30 ? (isPhone ? 28 : 20) : (isPhone ? 8 : 4);
     return {...d, displayName, x, y, anchor, labelDx, labelDy};
   });
 
