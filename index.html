@@ -769,10 +769,10 @@ input,textarea,select{font-family:inherit;color:inherit}
   .shield-arc{stroke-width:2.5}
   .hub-label{font-size:18px;letter-spacing:2.5px}
   .hub-sublabel{font-size:13px;letter-spacing:2.5px}
-  .ccl-title{font-size:19px;letter-spacing:3px}
-  .ccl-sub{font-size:15px;letter-spacing:2px}
-  .ccl-cell-num{font-size:32px}
-  .ccl-cell-label{font-size:10px;letter-spacing:.4px}
+  .ccl-title{font-size:22px;letter-spacing:3px}
+  .ccl-sub{font-size:14px;letter-spacing:2px}
+  .ccl-cell-num{font-size:34px}
+  .ccl-cell-label{font-size:19px;letter-spacing:.4px}
 }
 </style>
 </head>
@@ -1040,7 +1040,7 @@ function ShieldViz(){
 }
 
 function CCLViz(){
-  // Commerce Control List — 5x2 grid of the 10 CCL categories with a chase-highlight
+  // Commerce Control List — 5x2 on desktop, 2x5 on mobile with a chase-highlight
   const cats = [
     {n:'0', label:'Nuclear'},
     {n:'1', label:'Materials'},
@@ -1059,17 +1059,24 @@ function CCLViz(){
     return ()=>clearInterval(t);
   },[cats.length]);
 
-  const cellW = 74, cellH = 74, gap = 10;
-  const cols = 5, rows = 2;
+  const phone = typeof window!=='undefined' && window.innerWidth <= 600;
+  // On phone: 2 cols × 5 rows, wide rectangular cells
+  // On desktop: 5 cols × 2 rows, square cells
+  const cols = phone ? 2 : 5;
+  const rows = phone ? 5 : 2;
+  const cellW = phone ? 210 : 74;
+  const cellH = phone ? 78 : 74;
+  const gap = phone ? 12 : 10;
+
   const gridW = cols*cellW + (cols-1)*gap;
   const gridH = rows*cellH + (rows-1)*gap;
   const startX = -gridW/2;
-  const startY = -gridH/2;
+  const startY = phone ? -gridH/2 + 20 : -gridH/2;
 
   return e('svg',{className:'hero-viz',viewBox:'-260 -260 520 520',preserveAspectRatio:'xMidYMid meet','aria-hidden':true},
     // header
-    e('text',{x:0,y:-120,className:'ccl-title'},'Commerce Control List'),
-    e('text',{x:0,y:-100,className:'ccl-sub'},'10 categories · every controlled item'),
+    e('text',{x:0,y:phone?-235:-120,className:'ccl-title'},'Commerce Control List'),
+    e('text',{x:0,y:phone?-215:-100,className:'ccl-sub'},'10 categories · every controlled item'),
 
     // grid cells
     cats.map((c,i)=>{
@@ -1078,14 +1085,20 @@ function CCLViz(){
       const x = startX + col*(cellW+gap);
       const y = startY + row*(cellH+gap);
       const isActive = i===active;
-      const phone = typeof window!=='undefined' && window.innerWidth <= 600;
-      const numOffsetY = phone ? -8 : -4;
-      const labelOffsetY = phone ? 22 : 18;
       return e('g',{key:i},
-        e('rect',{x,y,width:cellW,height:cellH,rx:8,ry:8,className:'ccl-cell-bg'}),
-        e('rect',{x,y,width:cellW,height:cellH,rx:8,ry:8,className:'ccl-cell-active'+(isActive?' on':'')}),
-        e('text',{x:x+cellW/2,y:y+cellH/2+numOffsetY,className:'ccl-cell-num'+(isActive?' on':'')},c.n),
-        e('text',{x:x+cellW/2,y:y+cellH/2+labelOffsetY,className:'ccl-cell-label'+(isActive?' on':'')},c.label)
+        e('rect',{x,y,width:cellW,height:cellH,rx:10,ry:10,className:'ccl-cell-bg'}),
+        e('rect',{x,y,width:cellW,height:cellH,rx:10,ry:10,className:'ccl-cell-active'+(isActive?' on':'')}),
+        // On phone: number on the left, label on the right (horizontal layout)
+        // On desktop: number on top, label below (vertical layout)
+        phone
+          ? e(React.Fragment,null,
+              e('text',{x:x+32,y:y+cellH/2+2,className:'ccl-cell-num'+(isActive?' on':''),style:{textAnchor:'middle',dominantBaseline:'middle'}},c.n),
+              e('text',{x:x+64,y:y+cellH/2+2,className:'ccl-cell-label'+(isActive?' on':''),style:{textAnchor:'start',dominantBaseline:'middle'}},c.label)
+            )
+          : e(React.Fragment,null,
+              e('text',{x:x+cellW/2,y:y+cellH/2-4,className:'ccl-cell-num'+(isActive?' on':'')},c.n),
+              e('text',{x:x+cellW/2,y:y+cellH/2+18,className:'ccl-cell-label'+(isActive?' on':'')},c.label)
+            )
       );
     })
   );
