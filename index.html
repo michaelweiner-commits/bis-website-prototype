@@ -209,6 +209,7 @@ input,textarea,select{font-family:inherit;color:inherit}
 @keyframes destPulse{0%{r:6;opacity:.9}100%{r:22;opacity:0}}
 
 .dest-name{fill:rgba(255,255,255,.85);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.5px}
+@media (max-width:600px){.dest-name{font-size:14px}}
 .dest-code{fill:rgba(255,255,255,.35);font-family:'SF Mono',Menlo,monospace;font-size:9px;font-weight:500;letter-spacing:.3px}
 
 /* ---- Panel 2: Shield — national security ---- */
@@ -615,9 +616,10 @@ input,textarea,select{font-family:inherit;color:inherit}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:960px){
-  .hero{grid-template-columns:1fr;padding:60px 32px 100px;gap:20px}
-  .hero-right{min-height:340px;order:-1}
-  .hero-left h1{font-size:clamp(40px,9vw,64px)}
+  .hero{grid-template-columns:1fr;padding:40px 24px 80px;gap:24px}
+  .hero-left{order:1}
+  .hero-right{min-height:320px;order:2}
+  .hero-left h1{font-size:clamp(38px,8vw,62px)}
   .tile-grid{grid-template-columns:1fr}
   .stats-inner{grid-template-columns:repeat(2,1fr)}
   .dash-grid{grid-template-columns:1fr}
@@ -631,6 +633,134 @@ input,textarea,select{font-family:inherit;color:inherit}
   .nav-links{display:none}
   .nav{padding:0 20px}
   .agent-drawer{right:12px;left:12px;width:auto}
+}
+
+/* ==== PHONE (up to ~600px) ==== */
+@media (max-width:600px){
+  :root{--nav-h:56px}
+  /* Prototype banner shortens */
+  .proto-banner{padding:5px 12px;font-size:10px;letter-spacing:1px}
+  .proto-banner span{display:none}
+
+  /* Nav: brand short + apply button */
+  .nav{padding:0 14px}
+  .nav-inner{gap:12px}
+  .nav-brand span{display:none}
+  .nav-brand-mark{width:28px;height:28px;font-size:11px}
+  .nav-btn{padding:7px 12px;font-size:12px}
+  .nav-btn-ghost{padding:7px 8px}
+  .nav-btn-primary{padding:7px 14px;white-space:nowrap}
+
+  /* Hero — text and CTA come first, viz below */
+  .hero{padding:32px 18px 80px;gap:32px;min-height:auto}
+  .hero-left{order:1;max-width:none}
+  .hero-right{order:2;min-height:280px;height:280px}
+  .hero-eyebrow{font-size:10px;letter-spacing:3px;margin-bottom:16px}
+  .hero-left h1{font-size:38px;line-height:1.05;margin-bottom:20px}
+  .hero-line,.hero-cycler{display:block}
+  .hero-sub{font-size:15.5px;margin-bottom:28px}
+  .hero-ctas{gap:10px;flex-direction:column;width:100%}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .btn-large{padding:15px 24px;font-size:14px}
+  .hero-scroll{display:none}
+
+  /* Tiles */
+  .tiles{padding:70px 20px}
+  .tile{padding:32px 24px;min-height:auto}
+  .tile-num{margin-bottom:14px}
+  .tile-title{font-size:26px}
+  .tile-desc{font-size:14px}
+  .tiles-title{font-size:32px}
+
+  /* Stats */
+  .stats{padding:64px 20px}
+  .stats-inner{gap:28px 20px}
+  .stats-title{font-size:28px}
+  .stat-num{font-size:40px}
+  .stat-label{font-size:12px}
+  .stat-from{font-size:10.5px}
+
+  /* Notice */
+  .notice{padding:64px 20px}
+  .notice-title{font-size:28px}
+  .notice-body{font-size:15px}
+
+  /* Section pages */
+  .section-page{padding:80px 20px 60px}
+  .section-h1{font-size:38px}
+  .section-lead{font-size:16.5px}
+  .section-block{padding:44px 0}
+  .section-block-title{font-size:26px}
+  .section-block-body{font-size:15.5px}
+  .step-row{grid-template-columns:1fr;gap:12px}
+  .detail-row{grid-template-columns:1fr;gap:14px}
+  .detail-card{padding:24px}
+  .callout{flex-direction:column;align-items:flex-start;padding:28px;gap:20px}
+
+  /* Dashboard */
+  .dash{padding:36px 18px 60px}
+  .dash-h1{font-size:32px}
+  .dash-lead{font-size:15px}
+  .resume-hero{padding:28px 22px;margin-bottom:24px}
+  .resume-hero-inner{flex-direction:column;align-items:flex-start;gap:22px}
+  .resume-title{font-size:22px}
+  .resume-progress{width:100%}
+  .resume-actions{width:100%;flex-direction:column;gap:10px}
+  .resume-actions .btn{width:100%;justify-content:center}
+  .app-row{grid-template-columns:1fr;padding:16px 20px;gap:6px}
+  .app-row .app-arrow{display:none}
+  .app-id{font-size:11px}
+  .app-desc{font-size:13.5px}
+  .app-status{align-self:flex-start}
+
+  /* Application flow */
+  .app-flow{padding:36px 18px 100px}
+  .app-flow-title{font-size:26px}
+  .step-panel{padding:26px 20px}
+  .step-panel-h{font-size:20px}
+  .stepper{overflow-x:auto;padding-bottom:8px;margin:0 -18px 32px;padding-left:18px;padding-right:18px}
+  .stepper-item{min-width:70px}
+  .stepper-label{font-size:10.5px}
+  .step-actions{flex-direction:column;align-items:stretch;gap:14px}
+  .step-actions>div{width:100%;flex-direction:column}
+  .step-actions .btn{width:100%;justify-content:center}
+  .save-indicator{justify-content:center}
+  .review-row{grid-template-columns:1fr;gap:2px;padding:8px 0}
+
+  /* Status */
+  .status-page{padding:36px 18px 80px}
+  .status-inner{gap:20px}
+  .status-main{padding:28px 22px}
+  .status-h{font-size:26px}
+
+  /* Sign in */
+  .signin-wrap{padding:24px}
+  .signin-card{padding:36px 24px}
+  .signin-title{font-size:26px}
+
+  /* About */
+  .about-hero{padding:60px 20px}
+  .about-h1{font-size:40px}
+  .about-lead{font-size:16.5px}
+  .about-principles{padding:64px 20px}
+
+  /* Footer */
+  .footer{padding:44px 20px 24px}
+  .footer-cols{grid-template-columns:1fr;gap:32px}
+  .footer-bottom{flex-direction:column;text-align:left}
+
+  /* Agent */
+  .agent-fab{width:52px;height:52px;font-size:22px;bottom:20px;right:20px}
+  .agent-drawer{bottom:82px;right:12px;left:12px;height:calc(100vh - 120px)}
+
+  /* Turnstile mobile: bigger destination text, shorter labels, more space */
+  .hero-panel-caption-title{font-size:15px}
+  .dest-name-mobile{fill:rgba(255,255,255,.85);font-family:'Inter',sans-serif;font-size:13px;font-weight:600}
+  .shield-arc{stroke-width:2}
+  .ccl-title{font-size:13px}
+  .ccl-sub{font-size:10.5px}
+  .ccl-cell-num{font-size:16px}
+  .ccl-cell-label{font-size:9px}
 }
 </style>
 </head>
@@ -948,8 +1078,9 @@ function CCLViz(){
 
 function HeroViz(){
   // Hub-and-spoke: U.S. licensing hub at center, real BIS top destinations radiating outward.
-  // Every spoke carries an animated flow particle representing an export moving from license to destination.
-  const SPOKE_LEN = 200;
+  const isPhone = typeof window !== 'undefined' && window.innerWidth <= 600;
+  const SPOKE_LEN = isPhone ? 150 : 200;
+  const shortNames = {'United Kingdom':'UK','South Korea':'Korea','Netherlands':'Netherlands'};
   // 10 real BIS top export destinations, evenly spaced around the hub (36° apart)
   const destinations = [
     {name:'Japan',          angle:   0},
@@ -963,15 +1094,17 @@ function HeroViz(){
     {name:'Australia',      angle:  72},
     {name:'Singapore',      angle:  36}
   ].map(d=>{
+    const displayName = isPhone && shortNames[d.name] ? shortNames[d.name] : d.name;
     const rad = d.angle * Math.PI / 180;
     const x = Math.cos(rad) * SPOKE_LEN;
     const y = Math.sin(rad) * SPOKE_LEN;
     let anchor,labelDx;
-    if(x > 20){ anchor='start'; labelDx = 16; }
-    else if(x < -20){ anchor='end'; labelDx = -16; }
+    const gutter = isPhone ? 12 : 16;
+    if(x > 20){ anchor='start'; labelDx = gutter; }
+    else if(x < -20){ anchor='end'; labelDx = -gutter; }
     else { anchor='middle'; labelDx = 0; }
     const labelDy = y < -30 ? -12 : y > 30 ? 20 : 4;
-    return {...d, x, y, anchor, labelDx, labelDy};
+    return {...d, displayName, x, y, anchor, labelDx, labelDy};
   });
 
   return e('svg',{className:'hero-viz',viewBox:'-260 -260 520 520',preserveAspectRatio:'xMidYMid meet','aria-hidden':true},
@@ -1029,11 +1162,22 @@ function HeroViz(){
       x:d.x+d.labelDx, y:d.y+d.labelDy,
       style:{textAnchor:d.anchor},
       className:'dest-name'
-    },d.name))
+    },d.displayName))
   );
 }
 
+function useIsPhone(){
+  const [phone,setPhone] = useState(typeof window!=='undefined' && window.innerWidth <= 600);
+  useEffect(()=>{
+    const onResize = ()=>setPhone(window.innerWidth <= 600);
+    window.addEventListener('resize',onResize);
+    return ()=>window.removeEventListener('resize',onResize);
+  },[]);
+  return phone;
+}
+
 function HeroTurnstile(){
+  useIsPhone(); // subscribe so children re-render on breakpoint change
   const panels = useMemo(()=>[
     {
       eyebrow:'Enabling exporters',
