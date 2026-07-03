@@ -771,8 +771,8 @@ input,textarea,select{font-family:inherit;color:inherit}
   .hub-sublabel{font-size:13px;letter-spacing:2.5px}
   .ccl-title{font-size:19px;letter-spacing:3px}
   .ccl-sub{font-size:15px;letter-spacing:2px}
-  .ccl-cell-num{font-size:26px}
-  .ccl-cell-label{font-size:14px;letter-spacing:1px}
+  .ccl-cell-num{font-size:32px}
+  .ccl-cell-label{font-size:10px;letter-spacing:.4px}
 }
 </style>
 </head>
@@ -1078,11 +1078,14 @@ function CCLViz(){
       const x = startX + col*(cellW+gap);
       const y = startY + row*(cellH+gap);
       const isActive = i===active;
+      const phone = typeof window!=='undefined' && window.innerWidth <= 600;
+      const numOffsetY = phone ? -8 : -4;
+      const labelOffsetY = phone ? 22 : 18;
       return e('g',{key:i},
         e('rect',{x,y,width:cellW,height:cellH,rx:8,ry:8,className:'ccl-cell-bg'}),
         e('rect',{x,y,width:cellW,height:cellH,rx:8,ry:8,className:'ccl-cell-active'+(isActive?' on':'')}),
-        e('text',{x:x+cellW/2,y:y+cellH/2-4,className:'ccl-cell-num'+(isActive?' on':'')},c.n),
-        e('text',{x:x+cellW/2,y:y+cellH/2+18,className:'ccl-cell-label'+(isActive?' on':'')},c.label)
+        e('text',{x:x+cellW/2,y:y+cellH/2+numOffsetY,className:'ccl-cell-num'+(isActive?' on':'')},c.n),
+        e('text',{x:x+cellW/2,y:y+cellH/2+labelOffsetY,className:'ccl-cell-label'+(isActive?' on':'')},c.label)
       );
     })
   );
